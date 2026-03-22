@@ -1,0 +1,116 @@
+{
+  "projectType": "framework",
+  "projectName": "bun-api-kit",
+  "projectDescription": "A minimal, production-ready HTTP API starter built on Bun.serve with structured routing, rate limiting, request correlation, security headers, and consistent JSON responses.",
+  "theme": "palm",
+  "primaryColor": "#7c7c7c",
+  "lightColor": "#111111",
+  "darkColor": "#cacaca",
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "Documentation",
+        "groups": [
+          {
+            "group": "Get Started",
+            "pages": [
+              "introduction",
+              "quickstart"
+            ]
+          },
+          {
+            "group": "Core Concepts",
+            "pages": [
+              "concepts/architecture",
+              "concepts/routing",
+              "concepts/request-pipeline"
+            ]
+          },
+          {
+            "group": "Guides",
+            "pages": [
+              "guides/adding-routes",
+              "guides/environment-variables",
+              "guides/deployment"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "API Reference",
+        "groups": [
+          {
+            "group": "Utilities",
+            "pages": [
+              "api/response",
+              "api/logger",
+              "api/validation",
+              "api/requestid",
+              "api/tracing",
+              "api/metrics",
+              "api/compression",
+              "api/clientip"
+            ]
+          },
+          {
+            "group": "Security",
+            "pages": [
+              "api/security/ratelimit",
+              "api/security/bodysize",
+              "api/security/cors",
+              "api/security/headers"
+            ]
+          },
+          {
+            "group": "Endpoints",
+            "pages": [
+              "api/endpoints/health",
+              "api/endpoints/home"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "keyFeatures": [
+    "Zero-framework HTTP server using Bun.serve with standard Request/Response model",
+    "File-based modular routing under src/routes/<name>/ mounted at /api/v1/<name>",
+    "Per-route in-memory rate limiting via rate-limiter-flexible",
+    "Request correlation IDs via X-Request-ID / X-Correlation-ID headers and AsyncLocalStorage",
+    "Distributed tracing with X-Trace-ID header",
+    "Baseline security headers on every response (HSTS, CSP, X-Frame-Options, etc.)",
+    "Per-route body size enforcement with Content-Length and stream-based limits",
+    "CORS middleware with configurable origin allowlist and preflight handling",
+    "Automatic gzip/br compression for JSON responses over 1 KiB",
+    "Zod-based input validation helpers for body, query, and path params",
+    "In-memory metrics tracking (request totals, duration, errors, rate limit hits)",
+    "Structured colorized logging with levels controlled by LOG_LEVEL env"
+  ],
+  "publicApiSurface": [
+    "apiSuccess(data?, init?) — Build a standard JSON success envelope",
+    "apiFailure(data?, init?) — Build a standard JSON failure envelope",
+    "log(level, message, ctx?) — Colorized structured logger",
+    "createRouteLimiter(config) — Create a per-route in-memory rate limiter",
+    "consumeOr429(req, server) — Consume a rate limit point or return HTTP 429",
+    "createRouteBodyLimit({ maxBytes }) — Create a per-route body size enforcer",
+    "checkBodySize(req) — Enforce the body size limit for a route",
+    "validateBody(schema, body) — Validate request body with Zod",
+    "validateQuery(schema, query) — Validate query parameters with Zod",
+    "validateParams(schema, params) — Validate route params with Zod",
+    "runWithRequestContext(req, fn) — Run handler with request-scoped AsyncLocalStorage",
+    "getCurrentRequestId() — Get the current request's correlation ID",
+    "mirrorRequestIdHeader(response) — Add X-Request-ID to response",
+    "runWithTrace(fn) — Run handler with distributed trace context",
+    "getTraceId() / getSpanId() / getTraceHeaders() — Access current trace context",
+    "getMetricsSnapshot() — Return current in-memory metrics",
+    "negotiateEncoding(acceptEncoding) — Parse Accept-Encoding header",
+    "compressResponse(body, encoding) — Compress a response body",
+    "getClientIp(req, server) — Resolve client IP with trusted-proxy support",
+    "getClientIpKey(req, server) — Get rate-limiter-safe client IP key",
+    "createCorsMiddleware() — Build a CORS middleware instance",
+    "mergeSecurityHeaders(response) — Apply baseline security headers",
+    "handleRequest(req, server) — Central request pipeline entry point",
+    "GET /api/v1/home — Sample home endpoint",
+    "GET /api/v1/health — Health check endpoint for Kubernetes/load balancers"
+  ]
+}
